@@ -3,7 +3,15 @@ import {products} from './data.js'
 
 const app = express();
 
-app.get('/', (req, res) => {
+const logger = (req, res, next) => {
+    let url = req.url;
+    let method = req.method;
+    let time = new Date().getTime();
+    console.log(method, url, time);
+    next()
+}
+
+app.get('/', logger, (req, res) => {
     res.status(200).send("Home page")
 })
 
